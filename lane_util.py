@@ -212,6 +212,45 @@ def visualize_images(img_in, t_cost, params_cam, angle, img_name):
 
     return th_L
 
+def visualize_images_simple(img_in, t_cost, params_cam, img_name):
+    '''
+    place the lidar points into numpy arrays in order to make intensity map
+    \n img_in : image list for comparison
+    \n t_cost : inference time
+    \n params_cam : camera parameters
+    \n img_name : image name list
+    '''
+
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    
+    num_img = len(img_name)
+
+    silver1= np.zeros((80, params_cam["WIDTH"]*num_img, 3), np.uint8)
+    silver1[:] = (211,211,211)
+
+    for i in range(num_img):
+        cv2.putText(silver1, img_name[i] ,(30+i*params_cam["WIDTH"],50), font, 2,(0,0,0), 3, 0)
+    
+    silver2= np.zeros((60, params_cam["WIDTH"]*num_img, 3), np.uint8)
+    silver2[:] = (211,211,211)
+    cv2.putText(silver2,'Inference time: {:.4f}s'.format(t_cost),(30,30), font, 1,(0,0,0), 2, 0)
+ 
+    
+    img_hcat = cv2.hconcat((img_in[0], img_in[1]))
+
+    for i in range(2, num_img):
+        img_hcat = cv2.hconcat((img_hcat, img_in[i]))
+
+    img_vcat1 = cv2.vconcat((silver1, img_hcat))
+    img_vcat2 = cv2.vconcat((img_vcat1, silver2))
+    
+    cv2.imshow('Result', img_vcat2)
+    cv2.waitKey(1)
+    
+    th_L = cv2.getTrackbarPos('Luminance:','Result')
+
+    return th_L
+
 
 def draw_lane_img(img, leftx, lefty, rightx, righty):
     '''
