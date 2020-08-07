@@ -17,11 +17,6 @@ class main:
         #image subscriber
         ......
         
-        #command publisher      
-        self.cmd_vel = rospy.Publisher('aibot/cmd_vel', Twist, queue_size=1) 
-        self.move_cmd = Twist()  
-        self.move_cmd.linear.x = 0.5
-        self.move_cmd.angular.z = 0
     	
         
     def callback(self,data):
