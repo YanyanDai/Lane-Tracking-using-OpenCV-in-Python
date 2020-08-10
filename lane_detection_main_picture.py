@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 import time
 
-from lane_util import warp_image, binary_pipeline, morphologic_process, get_poly_val, fit_track_lanes, \
+from lane_util_picture import warp_image, binary_pipeline, morphologic_process, get_poly_val, fit_track_lanes, \
     callback_ths, crop_points, draw_lane_img, visualize_images_simple
 
 params_img = {
