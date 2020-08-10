@@ -93,8 +93,6 @@ def lane_detection(image):
         else:
             img_line = np.copy(img_morph)
 
-            
-            angle = calculate_angle(central_x,central_y,base_x,base_y) 
         print(fit_check)
         t_cost = time.time()-t_s
 
